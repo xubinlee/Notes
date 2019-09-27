@@ -32,15 +32,15 @@ heap区又分：Eden Space（伊甸园）、Survivor Space(幸存者区)、Tenur
 
 l   伊甸园区（Eden）：新生的对象都保存在此处，但是这些新生对象不一定会一直存活；
 
-​    |-此处也属于内存空间，如果占满了，就会执行GC处理；
+&emsp;&emsp;|-此处也属于内存空间，如果占满了，就会执行GC处理；
 
 l   旧生代区（Tenured）：如果对象要一直使用，就进入旧生代区，这属于二级回收保险；
 
-​    |-如果要执行GC，肯定先清理伊甸园区，随后发现空间还是不足，继续清理旧生代区；
+&emsp;&emsp;|-如果要执行GC，肯定先清理伊甸园区，随后发现空间还是不足，继续清理旧生代区；
 
 l   永久区（Perm）：永久区中的数据不会清除，即使程序出现了“OutOfMemoryError”也不会清除；
 
-​    在JDK1.8中元空间（Metaspace）取代了永久区，元空间并不在虚拟机中，而是使用本地内存
+&emsp;&emsp;在JDK1.8中元空间（Metaspace）取代了永久区，元空间并不在虚拟机中，而是使用本地内存
 
 调整内存大小：-Xms2048M       -Xmx2048M       -Xmn1024M （通常初始内存和最大内存设置一样）
 
@@ -74,25 +74,25 @@ l   “-Xmn”：设置年轻代（伊甸园区）的堆内存大小；
 
 **1.**          **System.gc()方法的调用**
 
-​		建议能不使用此方法就别使用，让虚拟机自己去管理它的内存，可通过通过-XX:+ DisableExplicitGC来禁止RMI调用System.gc()。
+&emsp;&emsp;建议能不使用此方法就别使用，让虚拟机自己去管理它的内存，可通过通过-XX:+ DisableExplicitGC来禁止RMI调用System.gc()。
 
 **2.**          **老年代空间不足**
 
-​		老年代空间只有在新生代对象转入及创建为大对象、大数组时才会出现不足的现象，当执行Full GC后空间仍然不足，则抛出如下错误【java.lang.OutOfMemoryError: Java heap space】
+&emsp;&emsp;老年代空间只有在新生代对象转入及创建为大对象、大数组时才会出现不足的现象，当执行Full GC后空间仍然不足，则抛出如下错误【java.lang.OutOfMemoryError: Java heap space】
 
 为避免以上两种状况引起的Full GC，调优时应尽量做到让对象在Minor GC阶段被回收、让对象在新生代多存活一段时间及不要创建过大的对象及数组。
 
 **3.**          **方法区空间不足**
 
-​		方法区中存放的为一些class的信息、常量、静态变量等数据，当系统中要加载的类、反射的类和调用的方法较多时，方法区可能会被占满，在未配置为采用CMS GC的情况下也会执行Full GC。如果经过Full GC仍然回收不了，那么JVM会抛出如下错误信息【java.lang.OutOfMemoryError: PermGen space】 
+&emsp;&emsp;方法区中存放的为一些class的信息、常量、静态变量等数据，当系统中要加载的类、反射的类和调用的方法较多时，方法区可能会被占满，在未配置为采用CMS GC的情况下也会执行Full GC。如果经过Full GC仍然回收不了，那么JVM会抛出如下错误信息【java.lang.OutOfMemoryError: PermGen space】 
 
 为避免方法区占满造成Full GC现象，可采用的方法为增大方法区空间或转为使用CMS GC。
 
 **4.**          **CMS GC时出现promotion failed和concurrent mode failure**
 
-​		对于采用CMS进行老年代GC的程序而言，尤其要注意GC日志中是否有promotion failed和concurrent mode failure两种状况，当这两种状况出现时可能会触发Full GC。
+&emsp;&emsp;对于采用CMS进行老年代GC的程序而言，尤其要注意GC日志中是否有promotion failed和concurrent mode failure两种状况，当这两种状况出现时可能会触发Full GC。
 
-​		promotion failed是在进行Minor GC时，survivor space放不下、对象只能放入老年代，而此时老年代也放不下造成的；concurrent mode failure是在执行CMS GC的同时有对象要放入老年代，而此时老年代空间不足造成的（有时候“空间不足”是CMS GC时当前的浮动垃圾过多导致暂时性的空间不足触发Full GC）；
+&emsp;&emsp;promotion failed是在进行Minor GC时，survivor space放不下、对象只能放入老年代，而此时老年代也放不下造成的；concurrent mode failure是在执行CMS GC的同时有对象要放入老年代，而此时老年代空间不足造成的（有时候“空间不足”是CMS GC时当前的浮动垃圾过多导致暂时性的空间不足触发Full GC）；
 
 对应解决办法为：增大survivor space、老年代空间或调低触发并发GC的比率。
 
@@ -100,4 +100,4 @@ l   “-Xmn”：设置年轻代（伊甸园区）的堆内存大小；
 
 **6.**          **堆中分配很大的对象**
 
-​		所谓大对象，是指需要大量连续内存空间的java对象，例如很长的数组，此种对象会直接进入老年代，而老年代虽然有很大的剩余空间，但是无法找到足够大的连续空间来分配给当前对象，此种情况就会触发JVM进行Full GC。
+&emsp;&emsp;所谓大对象，是指需要大量连续内存空间的java对象，例如很长的数组，此种对象会直接进入老年代，而老年代虽然有很大的剩余空间，但是无法找到足够大的连续空间来分配给当前对象，此种情况就会触发JVM进行Full GC。
