@@ -1,6 +1,6 @@
 ## § JVM内存结构
 
- ![1569562797818](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1569562797818.png)
+ ![](C:\Users\Administrator\GitBook\Library\Import\test\jvm.png)
 
 ![*](file:///C:\Users\ADMINI~1\AppData\Local\Temp\msohtmlclip1\01\clip_image001.gif)   jvm（HotSpot）由哪些区域组成，每个区域的作用：
 
