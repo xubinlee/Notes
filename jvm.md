@@ -1,8 +1,8 @@
 ## § JVM内存结构
 
- ![*](C:\Users\Administrator\GitBook\Library\Import\test\jvm.png)
+ ![](https://github.com/xubinlee/Notes/blob/master/assets/jvm.png?raw=true)
 
-![*](file:///C:\Users\ADMINI~1\AppData\Local\Temp\msohtmlclip1\01\clip_image001.gif)   jvm（HotSpot）由哪些区域组成，每个区域的作用：
+### jvm（HotSpot）由哪些区域组成，每个区域的作用：
 
 **方法区：**线程共享的内存区域，用于存储已被虚拟机加载的类信息、常量、静态变量
 
@@ -22,13 +22,13 @@
 
 Java.lang.Runtime 取得一些系统内存信息或者进行垃圾收集处理（GC）
 
-![*](file:///C:\Users\ADMINI~1\AppData\Local\Temp\msohtmlclip1\01\clip_image001.gif)  jvm区域总体分两类，heap区和非heap区。
+### jvm区域总体分两类，heap区和非heap区。
 
 heap区又分：Eden Space（伊甸园）、Survivor Space(幸存者区)、Tenured Gen（老年代-养老区）。 
 
 非heap区又分：Code Cache(代码缓存区)、Perm Gen（永久代）、Jvm Stack(java虚拟机栈)、Local Method Statck(本地方法栈)。
 
-![*](file:///C:\Users\ADMINI~1\AppData\Local\Temp\msohtmlclip1\01\clip_image001.gif)  Java内存空间可划分为：
+##### Java内存空间可划分为：
 
 l   伊甸园区（Eden）：新生的对象都保存在此处，但是这些新生对象不一定会一直存活；
 
@@ -74,7 +74,7 @@ Sample test = new Sample（）
 
    栈区分为3个部分：基本类型变量区、执行上下文、操作指令区（存放操作指令）
 
-![*](file:///C:\Users\ADMINI~1\AppData\Local\Temp\msohtmlclip1\01\clip_image001.gif)  导致JVM进行Full GC的情况及解决办法：
+### 导致JVM进行Full GC的情况及解决办法：
 
 **1.**          **System.gc()方法的调用**
 
