@@ -50,13 +50,9 @@ l   “-Xmx”：最大分配的内存；默认大小为物理内存的1/4，但
 
 l   “-Xmn”：设置年轻代（伊甸园区）的堆内存大小；
 
- 
 
-Sample test = new Sample（）
 
-​				|					|     
-
-​         对象引用   		对象本身
+![](https://github.com/xubinlee/Notes/blob/master/assets/object.png?raw=true)
 
 **栈存放在一级缓存中，存取速度较快；堆存放在二级缓存中，调用对象的速度相对慢一些**
 
