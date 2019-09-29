@@ -12,9 +12,11 @@
 
 *一、*  *步骤：*
 
-  ConnectionFactory---->Connection--->Session--->Message
-   Destination + Session------------------------------------>Producer
-   Destination + Session------------------------------------>MessageConsumer
+ConnectionFactory---->Connection--->Session--->Message
+
+Destination + Session------------------------------------>Producer
+
+Destination + Session------------------------------------>MessageConsumer
 
 1. 首先需要得到ConnectionFactoy和Destination，这里创建一个一对一的Queue作为Destination。
       ConnectionFactory factory = new ActiveMQConnectionFactory("vm://localhost");
