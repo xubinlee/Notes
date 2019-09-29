@@ -14,7 +14,7 @@ l   客户端 Client
 
 OAuth2的认证流程如图所示，具体如下：
 
-​                                                  
+![](https://github.com/xubinlee/Notes/blob/master/assets/oauth2.png?raw=true)                                                  
 
 （1）用户（资源持有者）打开客户端 ，客户端询问用户授权。
 
@@ -28,13 +28,9 @@ OAuth2的认证流程如图所示，具体如下：
 
 （6）资源服务器确认令牌正确无误，向客户端释放资源。
 
- 
-
 &emsp;&emsp;OAuth2 Provider 的角色被分为 Authorization Server（授权服务）和 Resource Service（资源服务），通常它们不在同一个服务中，可能一个 Authorization Service 对应多个 Resource Service。Spring OAuth2 需配合 Spring Security 一起使用，所有的请求由 Spring MVC 控制器处理，并经过一系列的Spring Security过滤器。
 
- 
-
-在Spring Security过滤器链中有以下两个节点，这两个节点是向 Authorization Service 获取验证和授权的。
+&emsp;&emsp;在Spring Security过滤器链中有以下两个节点，这两个节点是向 Authorization Service 获取验证和授权的。
 
 l   授权节点：默认为 /oauth/authorize。
 
@@ -74,13 +70,13 @@ l   获取Token节点：默认为 /oauth/token。
 
 3. 编写资源服务
 
-   1)         **配置Resource Server**
+   **1)         配置Resource Server**
 
    @EnableResourceServer
 
    public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {}
 
-   2)         **配置OAuth2 Client**
+   **2)         配置OAuth2 Client**
 
    @EnableOAuth2Client //开启OAuth2Client
 
@@ -88,7 +84,7 @@ l   获取Token节点：默认为 /oauth/token。
 
    public class OAuth2ClientConfig {}
 
-   3)         **编写用户注册接口**
+   **3)         编写用户注册接口**
 
  
 
