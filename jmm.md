@@ -36,13 +36,28 @@
 
 &emsp;&emsp;在Java中可以使用synchronized来保证方法和代码块内的操作是原子性的。
 
+如何保证number++操作的原子性：
+
+1. 使用synchronize关键字
+
+2. 使用ReentrantLock
+3. 使用AtomicInterger
+
 **可见性**
 
 &emsp;&emsp;Java内存模型是通过在变量修改后将新值同步回主内存，在变量读取前从主内存刷新变量值的这种依赖主内存作为传递媒介的方式来实现的。
 
-&emsp;&emsp;Java中的volatile关键字提供了一个功能，那就是被其修饰的变量在被修改后可以立即同步到主内存，被其修饰的变量在每次是用之前都从主内存刷新。因此，可以使用volatile来保证多线程操作时变量的可见性。
+&emsp;&emsp;Java中的volatile ['vɑlətl]关键字提供了一个功能，那就是被其修饰的变量在被修改后可以立即同步到主内存，被其修饰的变量在每次是用之前都从主内存刷新。因此，可以使用volatile来保证多线程操作时变量的可见性。
 
 &emsp;&emsp;除了volatile，Java中的synchronized和final两个关键字也可以实现可见性。
+
+1. synchronize可实现内存可见性和操作原子性
+
+2. volatile（通过添加内存屏障来禁止指令重排）可实现内存可见性，但是不能保证操作原子性
+
+3. 被final修饰的字段在构造器中一旦初始化完成，并且没有发生this逃逸（其他线程通过this引用访问到初始化了一半的对象），那么就实现线程可见。
+
+volatile适用于读多写少的场景，valatile不会让线程阻塞，响应速度比synchronize高，这是它的优点。
 
 **有序性**
 
