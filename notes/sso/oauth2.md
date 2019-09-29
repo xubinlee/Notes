@@ -46,23 +46,24 @@ l   获取Token节点：默认为 /oauth/token。
 
    **1)**         **配置Spring Security**
 
+   ```java
    @EnableWebSecurity
-
    public class WebSecurityConfig extends WebSecurityConfigurerAdapter{}
-
+   
    @Service
-
    public class UserServiceDetail implements UserDetailsService{}
-
+   
    public class User implements UserDetails, Serializable {}
-
+   
    public class Role implements GrantedAuthority {}
+   ```
 
    **2)**          **配置Authorization Server**
 
+   ```java
    @EnableAuthorizationServer //开启授权服务的功能
-
    public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {}
+   ```
 
    **3)**         **暴露Remote Token Service接口**
 
@@ -72,17 +73,18 @@ l   获取Token节点：默认为 /oauth/token。
 
    **1)         配置Resource Server**
 
+   ```java
    @EnableResourceServer
-
    public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {}
+   ```
 
    **2)         配置OAuth2 Client**
 
+   ```java
    @EnableOAuth2Client //开启OAuth2Client
-
    @EnableConfigurationProperties
-
    public class OAuth2ClientConfig {}
+   ```
 
    **3)         编写用户注册接口**
 

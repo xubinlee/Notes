@@ -12,7 +12,9 @@ ArrayList、LinkedList、Vector与java.util.Collections.synchronizedList、CopyO
 
    &emsp;&emsp;因为ArrayList底层原理就是一个数组的动态操作，数组的容量是固定的，ArrayList通过一些算法实现动态扩容。
 
+   ```java
    int initialCapacity = (int)Math.round(list.size() / 0.75 + 1);
+   ```
 
 2. LinkedList：双向链表实现，只能顺序访问，但可以快速地在链表中间插入和删除元素。LinkedList还可以用作栈、队列和双向队列。
 

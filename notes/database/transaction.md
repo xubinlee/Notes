@@ -114,7 +114,42 @@
 
 1. @RedisTransactional使用悲观锁实现，此注解只能使用在方法上，在方法执行前会被上锁，执行完成会解锁。（AOP的环绕通知实现）
 
-   ![](https://github.com/xubinlee/Notes/blob/master/assets/redis-transactional.png?raw=true)
+   ```java
+   try {
+      // 获取锁的最长等待时间
+      int acquireTimeout = transactional.acquireTimeout();
+      // 锁的超时时间
+      int lockTime  = transactional.lockTimeout();
+      // 如果没指定超时时间则直接上锁
+      if(lockTime == 0 && acquireTimeout ==0 ) {
+         lock.lock();
+      }
+      // 如果指定了超时间则尝试上锁
+      if(acquireTimeout!=0  && lockTime!=0){
+         boolean lockResult     = lock.tryLock(acquireTimeout,lockTime, TimeUnit.SECONDS);
+         if(!lockResult ) {
+            throw new RuntimeException(lockName + " 获取锁失败");
+         }
+      }
+      // 如果指定了 锁的超时时间，但没有指定获取锁的最长等待时间
+      if(acquireTimeout==0  && lockTime!=0){
+         lock.lock(lockTime, TimeUnit.SECONDS);
+      }
+      // 执行切面方法
+      Object result = pjd.proceed();
+      return result;
+   } catch (Throwable e) {
+      if( logger.isErrorEnabled()){
+         this.logger.error("redis事务失败",e);
+      }
+      throw e;
+   } finally {
+      // 解锁
+      lock.unlock();
+   }
+   ```
+
+   
 
 2. 如果多个方法对同一分布式对象可能有并发事务操作时，则应该使用同一个锁名；
 

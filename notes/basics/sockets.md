@@ -24,15 +24,136 @@
 
 4. 通过指定长度
 
-   Client：&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Server：
-
-![](https://github.com/xubinlee/Notes/blob/master/assets/socket-client.png?raw=true)           <img src="https://github.com/xubinlee/Notes/blob/master/assets/socket-server.png?raw=true" style="zoom:80%;" />   
+   ```java
+   import java.io.OutputStream;
+   import java.net.Socket;
+   
+   public class SocketClient {
+     public static void main(String args[]) throws Exception {
+       // 要连接的服务端IP地址和端口
+       String host = "127.0.0.1";
+       int port = 8888;
+       // 与服务端建立连接
+       Socket socket = new Socket(host, port);
+       // 建立连接后获得输出流
+       OutputStream outputStream = socket.getOutputStream();
+       String message = "the first message!";
+       //首先需要计算得知消息的长度
+       byte[] sendBytes = message.getBytes("UTF-8");
+       //然后将消息的长度优先发送出去
+       outputStream.write(sendBytes.length >>8);
+       outputStream.write(sendBytes.length);
+       //然后将消息再次发送出去
+       outputStream.write(sendBytes);
+       outputStream.flush();
+       //==========此处重复发送一次，实际项目中为多个命名，此处只为展示用法
+       message = "第二条消息";
+       sendBytes = message.getBytes("UTF-8");
+       outputStream.write(sendBytes.length >>8);
+       outputStream.write(sendBytes.length);
+       outputStream.write(sendBytes);
+       outputStream.flush();
+       //==========此处重复发送一次，实际项目中为多个命名，此处只为展示用法
+       message = "the third message!";
+       sendBytes = message.getBytes("UTF-8");
+       outputStream.write(sendBytes.length >>8);
+       outputStream.write(sendBytes.length);
+       outputStream.write(sendBytes);    
+       outputStream.close();
+   socket.close();
+   
+     }
+   }
+   ```
+   
+   ```java
+   import java.io.InputStream;
+   import java.net.ServerSocket;
+   import java.net.Socket;
+   
+   public class SocketServer {
+       public static void main(String[] args) throws Exception {
+           // 监听指定的端口
+           int port = 8888;
+           ServerSocket server = new ServerSocket(port);
+           
+           // server将一直等待连接的到来
+           System.out.println("server将一直等待连接的到来");
+           Socket socket = server.accept();
+           // 建立好连接后，从socket中获取输入流，并建立缓冲区进行读取
+           InputStream inputStream = socket.getInputStream();
+           byte[] bytes;
+           // 因为可以复用Socket且能判断长度，所以可以一个Socket用到底
+           while (true) {
+               // 首先读取两个字节表示的长度
+               int first = inputStream.read();
+               //如果读取的值为-1 说明到了流的末尾，Socket已经被关闭了，此时将不能再去读取
+               if (first == -1) {
+                   break;
+               }
+               int second = inputStream.read();
+               int length = (first << 8) + second;
+               // 然后构造一个指定长的byte数组
+               bytes = new byte[length];
+               // 然后读取指定长度的消息即可
+               inputStream.read(bytes);
+               System.out.println("get message from client: " + new String(bytes, "UTF-8"));
+           }
+           inputStream.close();
+           socket.close();
+           server.close();
+       }
+   }
+   ```
 
 **服务端并发处理能力：**
 
 &emsp;&emsp;通过循环处理多个Socket请求时，当一个请求的处理比较耗时时，后面的请求将被阻塞，所以一般都是用多线程的方式来处理Socket，每一个Socket请求创建一个线程来处理：
 
-![](https://github.com/xubinlee/Notes/blob/master/assets/socket-thread.png?raw=true)   
+```java
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class SocketServer {
+  public static void main(String args[]) throws Exception {
+    // 监听指定的端口
+    int port = 8888;
+    ServerSocket server = new ServerSocket(port);
+    // server将一直等待连接的到来
+    System.out.println("server将一直等待连接的到来");
+
+    //如果使用多线程，那就需要线程池，防止并发过高时创建过多线程耗尽资源
+    ExecutorService threadPool = Executors.newFixedThreadPool(100);
+    
+    while (true) {
+      Socket socket = server.accept();
+      
+      Runnable runnable=()->{
+        try {
+          // 建立好连接后，从socket中获取输入流，并建立缓冲区进行读取
+          InputStream inputStream = socket.getInputStream();
+          byte[] bytes = new byte[1024];
+          int len;
+          StringBuilder sb = new StringBuilder();
+          while ((len = inputStream.read(bytes)) != -1) {
+            // 注意指定编码格式，发送方和接收方一定要统一，建议使用UTF-8
+            sb.append(new String(bytes, 0, len, "UTF-8"));
+          }
+          System.out.println("get message from client: " + sb);
+          inputStream.close();
+          socket.close();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      };
+      threadPool.submit(runnable);
+    }
+  }
+}
+```
 
 线程池优点：
 

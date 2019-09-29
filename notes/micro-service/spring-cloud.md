@@ -6,114 +6,99 @@
 
 2. application.yml配置：
 
-   \#提供服务端口
-
+   ```properties
+#提供服务端口
    server.port=1111
-
-   \#提供服务的域名，本地可以使用localhost或者配置hosts测试
-
+#提供服务的域名，本地可以使用localhost或者配置hosts测试
    eureka.instance.hostname=localhost
-
-   \#关闭向注册中心注册自己
-
+#关闭向注册中心注册自己
    eureka.client.register-with-eureka=false
-
-   \#关闭发现注册服务，注册中心仅用于维护节点
-
+#关闭发现注册服务，注册中心仅用于维护节点
    eureka.client.fetch-registry=false
-
-   \#配置注册中心提供服务的url（这里引用上边的配置）
-
+#配置注册中心提供服务的url（这里引用上边的配置）
    eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
+```
 
 二、  Eureka注册中心集群实现高可用
 
 1. Peer1注册中心application.yml配置：
 
-   \#应用名
-
+   ```properties
+#应用名
    spring.application.name=eureka-server
-
-   \#提供服务端口1111
-
+#提供服务端口1111
    server.port=1111
-
-   \#提供服务的域名，这里在hosts文件中修改了
-
+#提供服务的域名，这里在hosts文件中修改了
    eureka.instance.hostname=peer1
-
-   \#向第二个注册中心注册自己
-
+#向第二个注册中心注册自己
    eureka.client.service-url.defaultZone=http://peer2:1112/eureka/
-
+```
+   
 2. Peer2注册中心application.yml配置：
 
-   \#应用名称与第一个注册中心一样
-
+   ```properties
+#应用名称与第一个注册中心一样
    spring.application.name=eureka-server
-
-   \#提供服务端口1112
-
+#提供服务端口1112
    server.port=1112
-
-   \#提供服务的域名，这里在hosts文件中修改了
-
+#提供服务的域名，这里在hosts文件中修改了
    eureka.instance.hostname=peer2
-
-   \#向第一个注册中心注册自己
-
+#向第一个注册中心注册自己
    eureka.client.service-url.defaultZone=http://peer1:1111/eureka/
+```
 
 三、  服务提供者搭建
 
-1. @EnableDiscoveryClient
+1. ```java
+   @EnableDiscoveryClient
+   ```
 
-2. @Autowired
-
+2. ```java
+   @Autowired
    private DiscoveryClient client; //注入发现客户端
+   ```
 
-3. server.port=8080
-
+3. ```properties
+   server.port=8080
+   
    spring.application.name=hello-service
    eureka.client.serviceUrl.defaultZone=http://localhSost:1111/eureka/, http://localhost:1112/eureka/
+   ```
 
 四、服务发现与消费：以Ribbon为例
 
-1. @EnableDiscoveryClient
+1. ```java
+   @EnableDiscoveryClient
+   ```
 
-2. @Bean  //将此Bean交给spring容器
-
+2. ```java
+   @Bean  //将此Bean交给spring容器
    @LoadBalanced  //通过此注解开启负载均衡
-
    RestTemplate restTemplate(){
+        return new RestTemplate();
+   }
+   ```
 
-   ​      return new RestTemplate();
-
-   ​    }
-
-3. @Autowired
-
+3. ```java
+@Autowired
    //注入restTemplate
+private RestTemplate restTemplate;
+   ```
 
-   private RestTemplate restTemplate;
-
-4. //使用restTemplate调用微服务接口
-
+4. ```java
+   //使用restTemplate调用微服务接口
    restTemplate.getForEntity("**http://hello-service/hello**", String.class).getBody();
+   ```
 
-5. application.yml配置：
-
-   *#为ribbon-customer**指定服务端口* 
-
-   **server.port**=**9000**    
-
-   *#指定应用名* 
-
-   **spring.application.name=ribbon-customer**
-
-    *#指定eureka注册中心地址* 
-
-   **eureka.client.serviceUrl.defaultZone**: [**http://peer1:1111/eureka/,http://peer2:1112/eureka/**](http://peer1:1111/eureka/,http:/peer2:1112/eureka/)
+5. ```properties
+application.yml配置：
+   #为ribbon-customer指定服务端口
+server.port=9000   
+   #指定应用名 
+spring.application.name=ribbon-customer
+   #指定eureka注册中心地址
+eureka.client.serviceUrl.defaultZone: http://peer1:1111/eureka/,http://peer2:1112/eureka/
+   ```
 
 备注：Ribbon作为服务消费者，可以在用户获取到服务提供者提供的服务的同时，不向用户暴露接口地址。可以看到，这里调用服务接口的时候使用的是服务提供者的服务名代替主机名，这在服务治理框架中，这种特性很重要。
 
@@ -203,35 +188,24 @@ post请求和get请求都有`*ForEntity`和`*ForObject`方法，其中参数列�
 
 六、Hystrix熔断器（读：high string s）
 
+```java
 @Service 
-
 public class RibbonService { 
-
 @Autowired 
-
 private RestTemplate restTemplate; 
-
  
-
 @HystrixCommand(fallbackMethod = "hystrixFallback") 
-
 public String helloService(){ 
-
 //调用服务提供者接口，正常则返回hello字符串 
-
 return restTemplate.getForEntity("http://hello-service/hello", String.class).getBody(); 
-
 } 
 
 /** * 调用服务失败处理方法 * @return “error" */ 
-
 public String hystrixFallback(){ 
-
-return "error"; 
-
-} 
-
+    return "error"; 
+  } 
 }
+```
 
 七、自定义HystrixCommand
 
@@ -265,43 +239,33 @@ return "error";
 
 1. 使用Feign当做Service来使用服务提供者
 
-   /** * 服务提供者的Feign 
-
+   ```java
+/** * 服务提供者的Feign 
    \* 这个接口相当于把原来的服务提供者项目当成一个Service类， 
-
-   \* 我们只需在声明它的Feign-client的名字，会自动去调用注册中心的这个名字的服务 
-
+\* 我们只需在声明它的Feign-client的名字，会自动去调用注册中心的这个名字的服务 
    \* 更简单的理解是value相当于MVC中的Controller类的父路径，通过"父路径+子路径和参数来调用服务" 
-
-   */ 
-
+*/ 
    @FeignClient(value = "eureka-service") //其中的value的值为要调用服务的名称 
-
-   public interface EurekaServiceFeign { 
-
+public interface EurekaServiceFeign { 
    /** 
-
-   \* 第一个Feign代码 
-
+\* 第一个Feign代码 
    \* Feign中没有原生的@GetMapping/@PostMapping/@DeleteMapping/@PutMapping，要指定需要method进行 
-
-   */ 
-
+*/ 
    @RequestMapping(value = "/hello", method=RequestMethod.GET) 
-
-   String helloFeign(); 
-
+String helloFeign(); 
    }
-
+```
+   
 2. 不需要在每个接口加FeignClient注解，通过继承特性让这些接口可以直接使用Feign去调用服务提供者的接口方法
 
-   /** * 继承服务提供者的HelloService的接口，从而拥有这个接口的所有方法 * 那么在这个Feign中就只需要使用HelloService定义的接口方法 
-
+   ```java
+/** 
+   * 继承服务提供者的HelloService的接口，从而拥有这个接口的所有方法 
+* 那么在这个Feign中就只需要使用HelloService定义的接口方法 
    */ 
-
-   @FeignClient("eureka-service") 
-
+@FeignClient("eureka-service") 
    public interface RefactorHelloServiceFeign extends HelloService { }
+   ```
 
 十二、          Zuul：静态路由、静态过滤器与动态路由的实现
 

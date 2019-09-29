@@ -24,8 +24,32 @@
 
 2)         加互斥锁，互斥锁参考代码如下：
 
-  ![](https://github.com/xubinlee/Notes/blob/master/assets/cache-lock.png?raw=true)                                                
-
+```java
+public static String getData(String key) throws InterruptedException {
+    ReentrantLock reenLock = new ReentrantLock();
+    // 从缓存读取数据
+    String result=getDataFromRedis(key);
+    // 缓存中不存在数据
+    if (result == null) {
+        // 尝试获取锁，获取成功，去数据库区数据
+        if (reenLock.tryLock()) {
+            // 从数据库获取数据
+            result=getDataFromRedis(key);
+            // 更新缓存数据
+            if (result != null) {
+                setDataToCache(key,result);
+            }
+            // 释放锁
+            reenLock.unlock();
+        }else{ // 获取锁失败
+            // 暂停100ms后再重新获取数据
+            Thread.sleep(100);
+            result=getData(key);
+        }
+    }
+    return result;
+}
+```
 4. 缓存雪崩： 
 
 缓存数据大批量过期：缓存雪崩是指缓存中数据大批量到过期时间，而查询数据量巨大，引起数据库压力过大甚至down机。和缓存击穿不同的是，缓存击穿指并发查同一条数据，缓存雪崩是不同数据都过期了，很多数据都查不到从而查数据库。
