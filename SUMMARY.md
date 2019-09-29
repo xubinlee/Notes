@@ -1,6 +1,6 @@
 # 目录
 
-* [Java基础]()
+* [Java基础]
 	* [平台无关性](basics/platform-independent.md)
 	* [JVM内存结构](basics/jvm.md)
 	* [Java垃圾回收机制](basics/gc.md)
@@ -18,9 +18,9 @@
 	* [Java中整型的缓存机制](basics/integer-cache.md)
 	* [字符串的不可变性](basics/string.md)
 	* [Switch](basics/switch.md)
-* [分布式]()
+* [分布式]
 	* [JMS](distributed/jms.md)
-* [数据库]()
+* [数据库]
 	* [数据库性能优化](database/database-optimize.md)
 	* [SQL优化](database/sql-optimize.md)
 	* [锁](database/lock.md)
@@ -28,12 +28,12 @@
 	* [Elasticsearch原理](database/elasticsearch.md)
 	* [缓存](database/cache.md)
 	* [事务](database/transaction.md)
-* [SSO]()
+* [SSO]
 	* [OAuth2](sso/oauth2.md)
 * [网络编程](network-program.md)
 * [GoF设计模式](gof.md)
 * [微服务架构](microservice.md)
 	* [SpringCloud](micro-service/spring-cloud.md)
 * [阿里巴巴Java开发手册编程规约摘录](alibaba-guidelines.md)
-* [Linux]()
+* [Linux]
 	* [Linux软件安装](linux/linux-software-setup.md)
