@@ -19,6 +19,7 @@
 	* [字符串的不可变性](string.md)
 	* [Switch](switch.md)
 * [分布式](distributed.md)
+	* [JMS](jms.md)
 * [数据库](database.md)
 	* [数据库性能优化](database-optimize.md)
 	* [SQL优化](sql-optimize.md)
