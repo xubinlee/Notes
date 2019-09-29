@@ -32,9 +32,8 @@
 	* [OAuth2](sso/oauth2.md)
 * [网络编程](network-program.md)
 * [GoF设计模式](gof.md)
-	* [GoF简介](gof/intro.md)
-* [AOP](aop.md)
 * [微服务架构](microservice.md)
+	* [SpringCloud](micro-service/spring-cloud.md)
 * [阿里巴巴Java开发手册编程规约](alibaba-guidelines.md)
 * [Linux软件安装](linux.md)
 
