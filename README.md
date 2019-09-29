@@ -1,6 +1,6 @@
 # 目录
 
-* [Java基础](*)
+* Java基础
 	* [平台无关性](basics/platform-independent.md)
 	* [JVM内存结构](basics/jvm.md)
 	* [Java垃圾回收机制](basics/gc.md)
