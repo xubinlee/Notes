@@ -1,6 +1,6 @@
 # 目录
 
-* [Java基础]()
+* [Java基础](#)
 	* [平台无关性](basics/platform-independent.md)
 	* [JVM内存结构](basics/jvm.md)
 	* [Java垃圾回收机制](basics/gc.md)
@@ -37,4 +37,3 @@
 * [阿里巴巴Java开发手册编程规约摘录](alibaba-guidelines.md)
 * [Linux]()
 	* [Linux软件安装](linux/linux-software-setup.md)
-
