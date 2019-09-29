@@ -24,7 +24,7 @@
 
 4. 通过指定长度
 
-   Client：&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Server：
+   Client：&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Server：
 
 ![](https://github.com/xubinlee/Notes/blob/master/assets/socket-client.png?raw=true)           <img src="https://github.com/xubinlee/Notes/blob/master/assets/socket-server.png?raw=true" style="zoom:80%;" />   
 
