@@ -6,6 +6,8 @@
 
 2. application.yml配置：
 
+   
+
    ```properties
 #提供服务端口
    server.port=1111
@@ -15,13 +17,15 @@
    eureka.client.register-with-eureka=false
 #关闭发现注册服务，注册中心仅用于维护节点
    eureka.client.fetch-registry=false
-#配置注册中心提供服务的url（这里引用上边的配置）
+   #配置注册中心提供服务的url（这里引用上边的配置）
    eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
    ```
 
 二、  Eureka注册中心集群实现高可用
 
 1. Peer1注册中心application.yml配置：
+
+   
 
    ```properties
 #应用名
@@ -30,11 +34,13 @@
    server.port=1111
 #提供服务的域名，这里在hosts文件中修改了
    eureka.instance.hostname=peer1
-#向第二个注册中心注册自己
+   #向第二个注册中心注册自己
    eureka.client.service-url.defaultZone=http://peer2:1112/eureka/
    ```
 
 2. Peer2注册中心application.yml配置：
+
+   
 
    ```properties
 #应用名称与第一个注册中心一样
@@ -43,11 +49,13 @@
    server.port=1112
 #提供服务的域名，这里在hosts文件中修改了
    eureka.instance.hostname=peer2
-#向第一个注册中心注册自己
+   #向第一个注册中心注册自己
    eureka.client.service-url.defaultZone=http://peer1:1111/eureka/
    ```
 
 三、  服务提供者搭建
+
+
 
 1. ```java
    @EnableDiscoveryClient
@@ -66,6 +74,8 @@
    ```
 
 四、服务发现与消费：以Ribbon为例
+
+
 
 1. ```java
    @EnableDiscoveryClient
@@ -239,6 +249,8 @@ public String hystrixFallback(){
 
 1. 使用Feign当做Service来使用服务提供者
 
+   
+
    ```java
 /** * 服务提供者的Feign 
    \* 这个接口相当于把原来的服务提供者项目当成一个Service类， 
@@ -252,13 +264,15 @@ public interface EurekaServiceFeign {
    \* Feign中没有原生的@GetMapping/@PostMapping/@DeleteMapping/@PutMapping，要指定需要method进行 
 */ 
    @RequestMapping(value = "/hello", method=RequestMethod.GET) 
-String helloFeign(); 
+   String helloFeign(); 
    }
    ```
 2. 不需要在每个接口加FeignClient注解，通过继承特性让这些接口可以直接使用Feign去调用服务提供者的接口方法
 
+   
+
    ```java
-/** 
+   /** 
    * 继承服务提供者的HelloService的接口，从而拥有这个接口的所有方法 
    * 那么在这个Feign中就只需要使用HelloService定义的接口方法 
    */ 
