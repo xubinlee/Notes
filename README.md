@@ -1,6 +1,5 @@
 # 目录
 
-* [Introduction](README.md)
 * [Java基础](basics.md)
 	* [平台无关性](basics/platform-independent.md)
 	* [JVM内存结构](basics/jvm.md)
@@ -29,6 +28,7 @@
 	* [缓存](database/cache.md)
 	* [事务](database/transaction.md)
 * [SSO](sso.md)
+	* [OAuth2](sso/oauth2.md)
 * [网络编程](network-program.md)
 * [反射](reflect.md)
 * [阿里巴巴Java开发手册编程规约](alibaba-guidelines.md)
