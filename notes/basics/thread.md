@@ -1,6 +1,6 @@
 # 线程
 
-### ThreadLocal
+## ThreadLocal
 
 &emsp;&emsp;ThreadLocal用于保存某个线程共享变量：对于同一个static ThreadLocal，不同线程只能从中get，set，remove自己的变量，而不会影响其他线程的变量。
 

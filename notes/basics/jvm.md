@@ -1,4 +1,4 @@
-## § JVM内存结构
+# JVM内存结构
 
  ![](https://github.com/xubinlee/Notes/blob/master/assets/jvm.png?raw=true)
 

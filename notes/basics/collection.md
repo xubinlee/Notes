@@ -1,6 +1,6 @@
 # 集合
 
-### List：
+## List：
 
 ArrayList、LinkedList、Vector与java.util.Collections.synchronizedList、CopyOnWriteArrayList
 
@@ -28,7 +28,7 @@ Enumeration [ɪ,njuːmə'reɪʃən] 只能读，Iterator[ɪtə'reɪtə]可以读
 
 &emsp;&emsp;禁止在foreach里进行元素的remove/add操作（触发fail-fast机制，modCount[实际被修改次数]和expectedModCount[预期被修改次数]不相等），remove元素使用Iterator对象，如果是并发操作，需要对Iterator加锁。
 
-### Map：
+## Map：
 
 HashMap、HashTable、LinkedHashMap、synchronizedMap、synchronizedSortedMap、ConcurrentHashMap与ConcurrentSkipListMap                （key不能重复）
 
@@ -54,7 +54,7 @@ HashMap、HashTable、LinkedHashMap、synchronizedMap、synchronizedSortedMap、
 
 5. ConcurrentSkipListMap：（线程安全）基于跳表（空间换取时间），支持排序操作
 
-### Set：
+## Set：
 
 TreeSet、HashSet、synchronizedSet、synchronizedSortedSet   （都不可重复）
 
