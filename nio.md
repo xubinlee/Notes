@@ -30,33 +30,33 @@
 
 **接入事件处理器：**
 
-\1.          创建socketChannel
+1. 创建socketChannel
 
-\2.          将socketChannel设置为非阻塞工作模式
+2. 将socketChannel设置为非阻塞工作模式
 
-\3.          将channel注册到selector上，监听可读事件
+3. 将channel注册到selector上，监听可读事件
 
-\4.          回复客户端提示信息
+4. 回复客户端提示信息
 
 **可读事件处理器：**
 
-\1.          要从selectionKey中获取到已经就绪的channel
+1. 要从selectionKey中获取到已经就绪的channel
 
-\2.          创建buffer
+2. 创建buffer
 
-\3.          循环读取客户端请求信息：
+3. 循环读取客户端请求信息：
 
-1)         切换buffer为读模式
+&emsp;&emsp;1)         切换buffer为读模式
 
-2)         读取buffer中的内容
+&emsp;&emsp;2)         读取buffer中的内容
 
-3)         将channel再次注册到selector上，监听可读事件
+&emsp;&emsp;3)         将channel再次注册到selector上，监听可读事件
 
-4)         将客户端发送的请求信息，广播给其他客户端：
+&emsp;&emsp;4)         将客户端发送的请求信息，广播给其他客户端：
 
-a)          获取到所有已接入的客户端channel
+&emsp;&emsp;&emsp;&emsp;&emsp;a)          获取到所有已接入的客户端channel
 
-b)         循环向所有channel广播信息
+&emsp;&emsp;&emsp;&emsp;&emsp;b)         循环向所有channel广播信息
 
 ### 客户端
 
