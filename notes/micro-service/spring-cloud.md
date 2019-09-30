@@ -99,14 +99,6 @@
 
 四、服务发现与消费：以Ribbon为例
 
-
-
-
-
-
-
-
-
 1. ```java
    @EnableDiscoveryClient
    ```
@@ -119,6 +111,8 @@
    }
    ```
 
+   
+   
    
    
    
