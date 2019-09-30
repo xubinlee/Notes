@@ -6,36 +6,36 @@
 
 2. application.yml配置：
 
+   application.yml配置：
+
+   application.yml配置：
+
+   application.yml配置：
+
+   application.yml配置：
+
+   application.yml配置：
+
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
+   
    ```properties
-#提供服务端口
+   #提供服务端口
    server.port=1111
-#提供服务的域名，本地可以使用localhost或者配置hosts测试
+   #提供服务的域名，本地可以使用localhost或者配置hosts测试
    eureka.instance.hostname=localhost
-#关闭向注册中心注册自己
+   #关闭向注册中心注册自己
    eureka.client.register-with-eureka=false
-#关闭发现注册服务，注册中心仅用于维护节点
+   #关闭发现注册服务，注册中心仅用于维护节点
    eureka.client.fetch-registry=false
-#配置注册中心提供服务的url（这里引用上边的配置）
+   #配置注册中心提供服务的url（这里引用上边的配置）
    eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
    ```
-   
-   application.yml配置：
-   
-   application.yml配置：
-   
-   application.yml配置：
-   
-   application.yml配置：
-   
-   application.yml配置：
-   
-   application.yml配置：
-   
-   application.yml配置：
-   
-   application.yml配置：
-   
-   application.yml配置：
 
 二、  Eureka注册中心集群实现高可用
 
