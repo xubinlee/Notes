@@ -269,7 +269,9 @@ public String hystrixFallback(){
 
 1. 使用Feign当做Service来使用服务提供者
 
-   /** * 服务提供者的Feign 
+   /** 
+
+   * 服务提供者的Feign 
 \* 这个接口相当于把原来的服务提供者项目当成一个Service类， 
    \* 我们只需在声明它的Feign-client的名字，会自动去调用注册中心的这个名字的服务 
 \* 更简单的理解是value相当于MVC中的Controller类的父路径，通过"父路径+子路径和参数来调用服务" 
@@ -282,15 +284,21 @@ public String hystrixFallback(){
    */ 
 @RequestMapping(value = "/hello", method=RequestMethod.GET) 
    String helloFeign(); 
-}
+   }
 2. 不需要在每个接口加FeignClient注解，通过继承特性让这些接口可以直接使用Feign去调用服务提供者的接口方法
 
-   /** 
-* 继承服务提供者的HelloService的接口，从而拥有这个接口的所有方法 
+   ```java
+/** 
+   * 继承服务提供者的HelloService的接口，从而拥有这个接口的所有方法 
    * 那么在这个Feign中就只需要使用HelloService定义的接口方法 
    */ 
+   
    @FeignClient("eureka-service") 
+   
    public interface RefactorHelloServiceFeign extends HelloService { }
+   ```
+   
+   
 
 十二、          Zuul：静态路由、静态过滤器与动态路由的实现
 
