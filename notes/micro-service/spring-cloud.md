@@ -271,6 +271,12 @@ public String hystrixFallback(){
 
    
 
+   
+
+   
+
+   
+
    ```java
 /** * 服务提供者的Feign 
    \* 这个接口相当于把原来的服务提供者项目当成一个Service类， 
@@ -278,11 +284,11 @@ public String hystrixFallback(){
    \* 更简单的理解是value相当于MVC中的Controller类的父路径，通过"父路径+子路径和参数来调用服务" 
 */ 
    @FeignClient(value = "eureka-service") //其中的value的值为要调用服务的名称 
-public interface EurekaServiceFeign { 
+   public interface EurekaServiceFeign { 
    /** 
-\* 第一个Feign代码 
+   \* 第一个Feign代码 
    \* Feign中没有原生的@GetMapping/@PostMapping/@DeleteMapping/@PutMapping，要指定需要method进行 
-*/ 
+   */ 
    @RequestMapping(value = "/hello", method=RequestMethod.GET) 
    String helloFeign(); 
    }
@@ -291,6 +297,12 @@ public interface EurekaServiceFeign {
 
    
 
+   
+   
+   
+   
+   
+   
    ```java
    /** 
    * 继承服务提供者的HelloService的接口，从而拥有这个接口的所有方法 
