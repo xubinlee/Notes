@@ -287,8 +287,18 @@ public String hystrixFallback(){
    }
 2. 不需要在每个接口加FeignClient注解，通过继承特性让这些接口可以直接使用Feign去调用服务提供者的接口方法
 
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
    ```java
-/** 
+   /** 
    * 继承服务提供者的HelloService的接口，从而拥有这个接口的所有方法 
    * 那么在这个Feign中就只需要使用HelloService定义的接口方法 
    */ 
@@ -297,8 +307,6 @@ public String hystrixFallback(){
    
    public interface RefactorHelloServiceFeign extends HelloService { }
    ```
-   
-   
 
 十二、          Zuul：静态路由、静态过滤器与动态路由的实现
 
