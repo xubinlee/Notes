@@ -279,10 +279,14 @@ public String hystrixFallback(){
 
    
 
-   ```java
-@FeignClient(value = "eureka-service") //其中的value的值为要调用服务的名称 
-   public interface EurekaServiceFeign { 
+   
 
+   
+
+   ```java
+   @FeignClient(value = "eureka-service") //其中的value的值为要调用服务的名称 
+   public interface EurekaServiceFeign { 
+   
    @RequestMapping(value = "/hello", method=RequestMethod.GET) 
    String helloFeign(); 
    }
