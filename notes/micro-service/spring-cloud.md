@@ -19,7 +19,23 @@
    eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
    ```
    
+   application.yml配置：
    
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
+   
+   application.yml配置：
 
 二、  Eureka注册中心集群实现高可用
 
