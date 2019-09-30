@@ -19,52 +19,58 @@ Destination + Session------------------------------------>Producer
 Destination + Session------------------------------------>MessageConsumer
 
 1. 首先需要得到ConnectionFactoy和Destination，这里创建一个一对一的Queue作为Destination。
+   
+      
+
+      
+      
+      
       
       ```java
-ConnectionFactory factory = new ActiveMQConnectionFactory("vm://localhost");
+      ConnectionFactory factory = new ActiveMQConnectionFactory("vm://localhost");
       Queue queue = new ActiveMQQueue("testQueue");
       ```
       
 2. 然后又ConnectionFactory创建一个Connection, 再启动这个Connection: 
-      
+
       ```java
-Connection connection = factory.createConnection();
+      Connection connection = factory.createConnection();
       connection.start();
       ```
-      
+
 3. 接下来需要由Connection创建一个Session:
-      
+
 ```java
       Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
-      ```
-      
+```
+
 4. 下面就可以创建Message了,这里创建一个TextMessage。
-      
+   
 ```java
       Message message = session.createTextMessage("Hello JMS!");
-      ```
-      
+```
+
 5. 要想把刚才创建的消息发送出去，需要由Session和Destination创建一个消息生产者：
-      
+   
 ```java
       MessageProducer producer = session.createProducer(queue);
-      ```
-      
+```
+
 6. 下面就可以发送刚才创建的消息了：
-      
+   
 ```java
       producer.send(message);
-      ```
-      
+```
+
 7. 消息发送完成之后，我们需要创建一个消息消费者来接收这个消息：
-      
+   
       ```java
 MessageConsumer comsumer = session.createConsumer(queue);
       Message recvMessage = comsumer.receive();
       ```
       
 8. 消息消费者接收到这个消息之后，就可以得到它的内容：
-      
+   
       ```java
       System.out.println(((TextMessage)recvMessage).getText());
       ```
