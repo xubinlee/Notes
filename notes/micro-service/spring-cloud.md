@@ -125,6 +125,8 @@
    
    
    
+   
+   
 3. ```java
   @Autowired
   //注入restTemplate
@@ -133,10 +135,22 @@
 
   
 
+  
+
+  
+
+  
+
 4. ```java
    //使用restTemplate调用微服务接口
    restTemplate.getForEntity("**http://hello-service/hello**", String.class).getBody();
    ```
+
+   
+
+   
+
+   
 
    
 
