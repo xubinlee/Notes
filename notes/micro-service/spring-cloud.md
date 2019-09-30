@@ -20,6 +20,8 @@
    #配置注册中心提供服务的url（这里引用上边的配置）
    eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
    ```
+   
+3. 
 
 二、  Eureka注册中心集群实现高可用
 
