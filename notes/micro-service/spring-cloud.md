@@ -6,18 +6,16 @@
 
 2. application.yml配置：
 
-   ```properties
-#提供服务端口
-   server.port=1111
-#提供服务的域名，本地可以使用localhost或者配置hosts测试
-   eureka.instance.hostname=localhost
-#关闭向注册中心注册自己
-   eureka.client.register-with-eureka=false
-#关闭发现注册服务，注册中心仅用于维护节点
-   eureka.client.fetch-registry=false
-#配置注册中心提供服务的url（这里引用上边的配置）
-   eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
-   ```
+   #提供服务端口
+server.port=1111
+   #提供服务的域名，本地可以使用localhost或者配置hosts测试
+eureka.instance.hostname=localhost
+   #关闭向注册中心注册自己
+eureka.client.register-with-eureka=false
+   #关闭发现注册服务，注册中心仅用于维护节点
+eureka.client.fetch-registry=false
+   #配置注册中心提供服务的url（这里引用上边的配置）
+eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
 
 二、  Eureka注册中心集群实现高可用
 
@@ -34,18 +32,14 @@ eureka.client.service-url.defaultZone=http://peer2:1112/eureka/
 
 2. Peer2注册中心application.yml配置：
 
-   
-
-   ```properties
-#应用名称与第一个注册中心一样
-   spring.application.name=eureka-server
-#提供服务端口1112
-   server.port=1112
-#提供服务的域名，这里在hosts文件中修改了
-   eureka.instance.hostname=peer2
+   #应用名称与第一个注册中心一样
+spring.application.name=eureka-server
+   #提供服务端口1112
+server.port=1112
+   #提供服务的域名，这里在hosts文件中修改了
+eureka.instance.hostname=peer2
    #向第一个注册中心注册自己
-   eureka.client.service-url.defaultZone=http://peer1:1111/eureka/
-   ```
+eureka.client.service-url.defaultZone=http://peer1:1111/eureka/
 
 三、  服务提供者搭建
 
