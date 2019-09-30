@@ -6,24 +6,16 @@
 
 2. application.yml配置：
 
-   application.yml配置：
-
-   application.yml配置：
-
-   application.yml配置：
-
-   application.yml配置：
-
-   application.yml配置：
-
-   application.yml配置：
    
-   application.yml配置：
+
    
-   application.yml配置：
+
    
-   application.yml配置：
+
    
+
+   
+
    ```properties
    #提供服务端口
    server.port=1111
@@ -41,27 +33,45 @@
 
 1. Peer1注册中心application.yml配置：
 
+2. 
+
+3. 
+
+4. 
+
+5. 
+
    ```properties
-#应用名
+   #应用名
    spring.application.name=eureka-server
-#提供服务端口1111
+   #提供服务端口1111
    server.port=1111
-#提供服务的域名，这里在hosts文件中修改了
+   #提供服务的域名，这里在hosts文件中修改了
    eureka.instance.hostname=peer1
-#向第二个注册中心注册自己
+   #向第二个注册中心注册自己
    eureka.client.service-url.defaultZone=http://peer2:1112/eureka/
    ```
 
 2. Peer2注册中心application.yml配置：
 
+3. 
+
+4. 
+
+5. 
+
+6. 
+
+7. 
+
    ```properties
-#应用名称与第一个注册中心一样
+   #应用名称与第一个注册中心一样
    spring.application.name=eureka-server
-#提供服务端口1112
+   #提供服务端口1112
    server.port=1112
-#提供服务的域名，这里在hosts文件中修改了
+   #提供服务的域名，这里在hosts文件中修改了
    eureka.instance.hostname=peer2
-#向第一个注册中心注册自己
+   #向第一个注册中心注册自己
    eureka.client.service-url.defaultZone=http://peer1:1111/eureka/
    ```
 
@@ -78,6 +88,8 @@
    private DiscoveryClient client; //注入发现客户端
    ```
 
+   
+   
 3. ```properties
    server.port=8080
    
