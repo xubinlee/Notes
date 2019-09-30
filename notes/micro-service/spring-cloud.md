@@ -272,14 +272,11 @@ public String hystrixFallback(){
    ```java
 @FeignClient(value = "eureka-service") //其中的value的值为要调用服务的名称 
    public interface EurekaServiceFeign { 
-/** 
-   * 第一个Feign代码 
-* Feign中没有原生的@GetMapping/@PostMapping/@DeleteMapping/@PutMapping，要指定需要用method进行 
-   */ 
-@RequestMapping(value = "/hello", method=RequestMethod.GET) 
-   String helloFeign(); 
-}
-   ```
+
+   @RequestMapping(value = "/hello", method=RequestMethod.GET) 
+String helloFeign(); 
+   }
+```
 2. 不需要在每个接口加FeignClient注解，通过继承特性让这些接口可以直接使用Feign去调用服务提供者的接口方法
 
    
