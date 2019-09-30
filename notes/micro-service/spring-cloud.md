@@ -39,8 +39,12 @@
 
    
 
+   
+
+   
+   
    ```properties
-#应用名
+   #应用名
    spring.application.name=eureka-server
    #提供服务端口1111
    server.port=1111
@@ -58,8 +62,10 @@
 
    
 
+   
+
    ```properties
-#应用名称与第一个注册中心一样
+   #应用名称与第一个注册中心一样
    spring.application.name=eureka-server
    #提供服务端口1112
    server.port=1112
