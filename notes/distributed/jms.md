@@ -64,13 +64,19 @@ Destination + Session------------------------------------>MessageConsumer
 
 7. 消息发送完成之后，我们需要创建一个消息消费者来接收这个消息：
    
+      
+
+      
+      
+      
+      
       ```java
-MessageConsumer comsumer = session.createConsumer(queue);
+      MessageConsumer comsumer = session.createConsumer(queue);
       Message recvMessage = comsumer.receive();
       ```
       
 8. 消息消费者接收到这个消息之后，就可以得到它的内容：
-   
+
       ```java
       System.out.println(((TextMessage)recvMessage).getText());
       ```
