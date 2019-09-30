@@ -269,20 +269,30 @@ public String hystrixFallback(){
 
 1. 使用Feign当做Service来使用服务提供者
 
+   
+
+   
+
+   
+
+   
+
+   
+
    ```java
 /** 
    * 服务提供者的Feign 
 * 这个接口相当于把原来的服务提供者项目当成一个Service类， 
    * 我们只需在声明它的Feign-client的名字，会自动去调用注册中心的这个名字的服务 
-* 更简单的理解是value相当于MVC中的Controller类的父路径，通过"父路径+子路径和参数来调用服务" 
+   * 更简单的理解是value相当于MVC中的Controller类的父路径，通过"父路径+子路径和参数来调用服务" 
    */ 
-@FeignClient(value = "eureka-service") //其中的value的值为要调用服务的名称 
+   @FeignClient(value = "eureka-service") //其中的value的值为要调用服务的名称 
    public interface EurekaServiceFeign { 
-/** 
+   /** 
    * 第一个Feign代码 
-* Feign中没有原生的@GetMapping/@PostMapping/@DeleteMapping/@PutMapping，要指定需要用method进行 
+   * Feign中没有原生的@GetMapping/@PostMapping/@DeleteMapping/@PutMapping，要指定需要用method进行 
    */ 
-@RequestMapping(value = "/hello", method=RequestMethod.GET) 
+   @RequestMapping(value = "/hello", method=RequestMethod.GET) 
    String helloFeign(); 
    }
    ```
