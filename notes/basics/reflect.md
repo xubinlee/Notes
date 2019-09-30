@@ -36,12 +36,6 @@ Class c2 = Class.forName(“com.ex.Cat”)
    Cat cat = (Cat)c1.newInstance();
    ```
 
-d
-
-
-
-dd
-
 ## 动态加载类
 
 Class.forName(“类的全称”)，不仅表示了类的类类型，还代表了动态加载类；功能性的类尽量使用动态加载
