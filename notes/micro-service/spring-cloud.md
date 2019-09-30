@@ -101,6 +101,12 @@
 
 
 
+
+
+
+
+
+
 1. ```java
    @EnableDiscoveryClient
    ```
@@ -113,6 +119,10 @@
    }
    ```
 
+   
+   
+   
+   
    
    
 3. ```java
