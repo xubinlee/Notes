@@ -26,15 +26,17 @@ Cat cat = new Cat();
 
 3. 类的动态加载
 
-   ```java
+   ```
 Class c2 = Class.forName(“com.ex.Cat”)
    ```
    
    c1、c2、c3是类类型，可以通过类类型创建该类的对象实例，前提要求是要用无参数的构造方法：
    
-   ```java
+   ```
    Cat cat = (Cat)c1.newInstance();
    ```
+   
+   
 
 ## 动态加载类
 
