@@ -33,16 +33,14 @@
 
 1. Peer1注册中心application.yml配置：
 
-2. 
+   
 
-3. 
+   
 
-4. 
-
-5. 
+   
 
    ```properties
-   #应用名
+#应用名
    spring.application.name=eureka-server
    #提供服务端口1111
    server.port=1111
@@ -54,18 +52,14 @@
 
 2. Peer2注册中心application.yml配置：
 
-3. 
+   
 
-4. 
+   
 
-5. 
-
-6. 
-
-7. 
+   
 
    ```properties
-   #应用名称与第一个注册中心一样
+#应用名称与第一个注册中心一样
    spring.application.name=eureka-server
    #提供服务端口1112
    server.port=1112
@@ -113,26 +107,32 @@
    }
    ```
 
+   
+   
 3. ```java
-@Autowired
-   //注入restTemplate
-private RestTemplate restTemplate;
-   ```
+  @Autowired
+  //注入restTemplate
+  private RestTemplate restTemplate;
+  ```
+
+  
 
 4. ```java
    //使用restTemplate调用微服务接口
    restTemplate.getForEntity("**http://hello-service/hello**", String.class).getBody();
    ```
 
+   
+
 5. ```properties
-application.yml配置：
-   #为ribbon-customer指定服务端口
-server.port=9000   
-   #指定应用名 
-spring.application.name=ribbon-customer
-   #指定eureka注册中心地址
-eureka.client.serviceUrl.defaultZone: http://peer1:1111/eureka/,http://peer2:1112/eureka/
-   ```
+  application.yml配置：
+  #为ribbon-customer指定服务端口
+  server.port=9000   
+  #指定应用名 
+  spring.application.name=ribbon-customer
+  #指定eureka注册中心地址
+  eureka.client.serviceUrl.defaultZone: http://peer1:1111/eureka/,http://peer2:1112/eureka/
+  ```
 
 备注：Ribbon作为服务消费者，可以在用户获取到服务提供者提供的服务的同时，不向用户暴露接口地址。可以看到，这里调用服务接口的时候使用的是服务提供者的服务名代替主机名，这在服务治理框架中，这种特性很重要。
 
