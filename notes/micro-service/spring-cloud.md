@@ -270,7 +270,7 @@ public String hystrixFallback(){
 1. 使用Feign当做Service来使用服务提供者
 
    ```java
-/** 
+ /** 
    * 服务提供者的Feign 
 * 这个接口相当于把原来的服务提供者项目当成一个Service类， 
    * 我们只需在声明它的Feign-client的名字，会自动去调用注册中心的这个名字的服务 
@@ -285,7 +285,6 @@ public String hystrixFallback(){
 @RequestMapping(value = "/hello", method=RequestMethod.GET) 
    String helloFeign(); 
    }
-   
    ```
 2. 不需要在每个接口加FeignClient注解，通过继承特性让这些接口可以直接使用Feign去调用服务提供者的接口方法
 
