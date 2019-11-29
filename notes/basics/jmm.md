@@ -53,6 +53,8 @@
 
 &emsp;&emsp;除了volatile，Java中的synchronized和final两个关键字也可以实现可见性。
 
+​         （备注：被final修饰的类不能被基础，被final修饰的方法不能被重写，被final修饰的成员变量必须赋初始值，而且只能初始化一次）  
+
 1. synchronize可实现内存可见性和操作原子性
 
 2. volatile（通过添加内存屏障来禁止指令重排）可实现内存可见性，但是不能保证操作原子性
